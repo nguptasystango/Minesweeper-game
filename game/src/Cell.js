@@ -7,7 +7,7 @@ class Cell extends Component {
           return this.props.value.isFlagged ? "0" : null;
         }
         if (value.isMine) {
-          return "1";
+          return "9";
         }
         if (value.neighbour === 0) {
           return null;

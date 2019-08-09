@@ -5,14 +5,9 @@ class Board extends Component {
         boardData: this.initBoardData(this.props.height, this.props.width, this.props.mines),
         gameStatus: "Game in progress",
         mineCount: this.props.mines,
-    };
-
-    /* Helper Functions */
-
-    // get mines
+    }; 
     getMines(data) {
-        let mineArray = [];
-
+        let mineArray = []; 
         data.map(datarow => {
             datarow.map((dataitem) => {
                 if (dataitem.isMine) {
@@ -24,7 +19,7 @@ class Board extends Component {
         return mineArray;
     }
 
-    // get Flags
+    
     getFlags(data) {
         let mineArray = [];
 
@@ -39,7 +34,7 @@ class Board extends Component {
         return mineArray;
     }
 
-    // get Hidden cells
+    
     getHidden(data) {
         let mineArray = [];
 
@@ -53,14 +48,10 @@ class Board extends Component {
 
         return mineArray;
     }
-
-    // get random number given a dimension
-    getRandomNumber(dimension) {
-        // return Math.floor(Math.random() * dimension);
+  
+    getRandomNumber(dimension) { 
         return Math.floor((Math.random() * 1000) + 1) % dimension;
-    }
-
-    // Gets initial board data
+    } 
     initBoardData(height, width, mines) {
         let data = this.createEmptyArray(height, width);
         data = this.plantMines(data, height, width, mines);
@@ -85,12 +76,10 @@ class Board extends Component {
             }
         }
         return data;
-    }
-
-    // plant mines on the board
-    plantMines(data, height, width, mines) {
-        let randomx, randomy, minesPlanted = 0;
-
+    } 
+    plantMines(data, height, width, mines) { 
+        console.log('data...', data)  
+        let randomx, randomy, minesPlanted = 0; 
         while (minesPlanted < mines) {
             randomx = this.getRandomNumber(width);
             randomy = this.getRandomNumber(height);
@@ -98,15 +87,11 @@ class Board extends Component {
                 data[randomx][randomy].isMine = true;
                 minesPlanted++;
             }
-        }
-
+        } 
         return (data);
-    }
-
-    // get number of neighbouring mines for each board cell
+    } 
     getNeighbours(data, height, width) {
-        let updatedData = data, index = 0;
-
+        let updatedData = data, index = 0; 
         for (let i = 0; i < height; i++) {
             for (let j = 0; j < width; j++) {
                 if (data[i][j].isMine !== true) {
@@ -126,48 +111,46 @@ class Board extends Component {
         }
 
         return (updatedData);
-    };
-
-    // looks for neighbouring cells and returns them
+    }; 
     traverseBoard(x, y, data) {
         const el = [];
 
-        //up
+         
         if (x > 0) {
             el.push(data[x - 1][y]);
         }
 
-        //down
+       
         if (x < this.props.height - 1) {
             el.push(data[x + 1][y]);
         }
 
-        //left
+         
         if (y > 0) {
             el.push(data[x][y - 1]);
         }
 
-        //right
+         
         if (y < this.props.width - 1) {
             el.push(data[x][y + 1]);
         }
 
-        // top left
+         
         if (x > 0 && y > 0) {
             el.push(data[x - 1][y - 1]);
         }
 
-        // top right
+        
         if (x > 0 && y < this.props.width - 1) {
             el.push(data[x - 1][y + 1]);
         }
 
-        // bottom right
+         
         if (x < this.props.height - 1 && y < this.props.width - 1) {
             el.push(data[x + 1][y + 1]);
         }
 
-        // bottom left
+        
         if (x < this.props.height - 1 && y > 0) {
             el.push(data[x + 1][y - 1]);
         }
@@ -175,7 +158,7 @@ class Board extends Component {
         return el;
     }
 
-    // reveals the whole board
+    
     revealBoard() {
         let updatedData = this.state.boardData;
         updatedData.map((datarow) => {
@@ -188,7 +171,7 @@ class Board extends Component {
         })
     }
 
-    /* reveal logic for empty cell */
+    
     revealEmpty(x, y, data) {
         let area = this.traverseBoard(x, y, data);
         area.map(value => {
@@ -202,18 +185,18 @@ class Board extends Component {
         return data; 
     }
 
-    // Handle User Events
+    
 
     _handleCellClick(x, y) {
 
-        // check if revealed. return if true.
+        
         if (this.state.boardData[x][y].isRevealed || this.state.boardData[x][y].isFlagged) return null;
 
-        // check if mine. game over if true
+         
         if (this.state.boardData[x][y].isMine) {
-            this.setState({gameStatus: "You Lost."});
+            this.setState({gameStatus: "Lost!!!"});
             this.revealBoard();
-            alert("game over");
+            alert("game over!!!");
         }
 
         let updatedData = this.state.boardData;
@@ -225,9 +208,9 @@ class Board extends Component {
         }
 
         if (this.getHidden(updatedData).length === this.props.mines) {
-            this.setState({mineCount: 0, gameStatus: "Win!!."});
+            this.setState({mineCount: 0, gameStatus: "Win!!!"});
             this.revealBoard();
-            alert("Win!!");
+            alert("Win!!!");
         }
 
         this.setState({
@@ -241,7 +224,7 @@ class Board extends Component {
         let updatedData = this.state.boardData;
         let mines = this.state.mineCount;
 
-        // check if already revealed
+        
         if (updatedData[x][y].isRevealed) return;
 
         if (updatedData[x][y].isFlagged) {

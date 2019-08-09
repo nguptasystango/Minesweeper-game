@@ -199,8 +199,7 @@ class Board extends Component {
                 }
             }
         });
-        return data;
-
+        return data; 
     }
 
     // Handle User Events
@@ -226,9 +225,9 @@ class Board extends Component {
         }
 
         if (this.getHidden(updatedData).length === this.props.mines) {
-            this.setState({mineCount: 0, gameStatus: "You Win."});
+            this.setState({mineCount: 0, gameStatus: "Win!!."});
             this.revealBoard();
-            alert("You Win");
+            alert("Win!!");
         }
 
         this.setState({
@@ -289,7 +288,7 @@ class Board extends Component {
   render() {
         return (
             <div className="board">
-                <div className="game-info">
+                <div className="">
                     <span className="info">Mines remaining: {this.state.mineCount}</span>
                     <h1 className="info">{this.state.gameStatus}</h1>
                 </div>

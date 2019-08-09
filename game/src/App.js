@@ -5,11 +5,10 @@ import Board from './Board'
 
 class App extends Component {
   state = {
-    height: 8,
-    width: 8,
-    mines: 10
-  };
-
+    height: 3,
+    width: 3,
+    mines: 5
+  }; 
   render() {
     const { height, width, mines } = this.state;
     return (

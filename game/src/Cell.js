@@ -4,10 +4,10 @@ class Cell extends Component {
     getValue() {
         const {value} = this.props; 
         if (!value.isRevealed) {
-          return this.props.value.isFlagged ? "🚩" : null;
+          return this.props.value.isFlagged ? "0" : null;
         }
         if (value.isMine) {
-          return "💣";
+          return "1";
         }
         if (value.neighbour === 0) {
           return null;
